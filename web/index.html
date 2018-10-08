@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Realtime stuff</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <form id='form'>
+    <textarea name='message' id='message' cols='30' rows='10'></textarea><br>
+    <button type='submit'>Send!</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+((socket, form, message) => {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    socket.emit('message', message.value);
+    console.log('message sent');
+    message.value = '';
+  })
+})(io(), document.getElementById('form'), document.getElementById('message'));
+  </script>
+</body>
+</html>
